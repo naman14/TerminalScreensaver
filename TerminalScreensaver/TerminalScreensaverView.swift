@@ -12,30 +12,31 @@ import ScreenSaver
 
 class TerminalScreensaverView: ScreenSaverView {
     
-    var text: String? = "This is a test string"
+    var text: NSString? = ""
+    var textStorage = NSTextStorage(string: " ");
+    var layoutmanager = NSLayoutManager();
+    var textContainer: NSTextContainer?
     
-
+    
     override func drawRect(dirtyRect: NSRect) {
         let context: CGContextRef = NSGraphicsContext.currentContext()!.CGContext
         CGContextSetFillColorWithColor(context, NSColor.blackColor().CGColor);
         CGContextSetAlpha(context, 1);
         CGContextFillRect(context, dirtyRect);
-        append("This is a test string")
-        if let text = text {
-        let point = CGPoint(x: 0, y: frame.size.height-20)
-            
-            let textFontAttributes = [
-                NSForegroundColorAttributeName: NSColor.whiteColor()
-            ]
-            
-        text.drawAtPoint(point, withAttributes: textFontAttributes)
-            
-        }
+        append(" This is a test string")
+        
+        let range: NSRange = layoutmanager.glyphRangeForTextContainer(textContainer!)
+        let point = CGPoint(x: 0, y: 0)
+        layoutmanager.drawGlyphsForGlyphRange(range, atPoint: point)
         
     }
     
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
+        
+        textContainer = NSTextContainer(containerSize: NSSize(width: frame.size.width, height: frame.size.height))
+        layoutmanager.addTextContainer(textContainer!)
+        textStorage.addLayoutManager(layoutmanager)
         animationTimeInterval = 2
     }
     
@@ -66,8 +67,13 @@ class TerminalScreensaverView: ScreenSaverView {
     }
     
     
-    func append(string: String) {
-        self.text = (self.text)! + string
+    func append(string: NSString) {
+        self.text = ((self.text)! as String) + (string as String)
+        let attributedText = NSMutableAttributedString(string: text! as String)
+        
+         attributedText.addAttribute(NSForegroundColorAttributeName , value:NSColor.whiteColor(),range: NSMakeRange(0, text!.length))
+        
+        textStorage.setAttributedString(attributedText)
     }
     
 }
