@@ -7,16 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED6D72221C7B83B800E9A98F /* PreferenceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED6D72211C7B83B800E9A98F /* PreferenceWindow.xib */; };
+		ED6D722A1C7B866500E9A98F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6D72291C7B866500E9A98F /* AppDelegate.swift */; };
+		ED6D722C1C7B866500E9A98F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED6D722B1C7B866500E9A98F /* Assets.xcassets */; };
+		ED6D722F1C7B866500E9A98F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED6D722D1C7B866500E9A98F /* MainMenu.xib */; };
+		ED6D72371C7B894100E9A98F /* TerminalScreensaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */; };
+		ED6D72381C7B899600E9A98F /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6D721D1C7B826600E9A98F /* PreferencesWindow.swift */; };
+		ED6D72391C7B899900E9A98F /* PreferenceWindow.xib in Sources */ = {isa = PBXBuildFile; fileRef = ED6D72211C7B83B800E9A98F /* PreferenceWindow.xib */; };
 		EDA5BCF71C7B726700EB191F /* TerminalScreensaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ED6D721D1C7B826600E9A98F /* PreferencesWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
+		ED6D72211C7B83B800E9A98F /* PreferenceWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferenceWindow.xib; sourceTree = "<group>"; };
+		ED6D72271C7B866500E9A98F /* ScreensaverApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScreensaverApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED6D72291C7B866500E9A98F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		ED6D722B1C7B866500E9A98F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ED6D722E1C7B866500E9A98F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		ED6D72301C7B866500E9A98F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDA5BCE91C7B6F4700EB191F /* TerminalScreensaver.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TerminalScreensaver.saver; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA5BCF01C7B6F4700EB191F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalScreensaverView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		ED6D72241C7B866500E9A98F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EDA5BCE51C7B6F4700EB191F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -27,10 +48,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		ED6D72281C7B866500E9A98F /* ScreensaverApp */ = {
+			isa = PBXGroup;
+			children = (
+				ED6D72291C7B866500E9A98F /* AppDelegate.swift */,
+				ED6D722B1C7B866500E9A98F /* Assets.xcassets */,
+				ED6D722D1C7B866500E9A98F /* MainMenu.xib */,
+				ED6D72301C7B866500E9A98F /* Info.plist */,
+			);
+			path = ScreensaverApp;
+			sourceTree = "<group>";
+		};
 		EDA5BCDF1C7B6F4700EB191F = {
 			isa = PBXGroup;
 			children = (
 				EDA5BCEB1C7B6F4700EB191F /* TerminalScreensaver */,
+				ED6D72281C7B866500E9A98F /* ScreensaverApp */,
 				EDA5BCEA1C7B6F4700EB191F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -39,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				EDA5BCE91C7B6F4700EB191F /* TerminalScreensaver.saver */,
+				ED6D72271C7B866500E9A98F /* ScreensaverApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,6 +82,8 @@
 			children = (
 				EDA5BCF01C7B6F4700EB191F /* Info.plist */,
 				EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */,
+				ED6D721D1C7B826600E9A98F /* PreferencesWindow.swift */,
+				ED6D72211C7B83B800E9A98F /* PreferenceWindow.xib */,
 			);
 			path = TerminalScreensaver;
 			sourceTree = "<group>";
@@ -65,6 +101,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		ED6D72261C7B866500E9A98F /* ScreensaverApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ED6D72311C7B866500E9A98F /* Build configuration list for PBXNativeTarget "ScreensaverApp" */;
+			buildPhases = (
+				ED6D72231C7B866500E9A98F /* Sources */,
+				ED6D72241C7B866500E9A98F /* Frameworks */,
+				ED6D72251C7B866500E9A98F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScreensaverApp;
+			productName = ScreensaverApp;
+			productReference = ED6D72271C7B866500E9A98F /* ScreensaverApp.app */;
+			productType = "com.apple.product-type.application";
+		};
 		EDA5BCE81C7B6F4700EB191F /* TerminalScreensaver */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EDA5BCF31C7B6F4700EB191F /* Build configuration list for PBXNativeTarget "TerminalScreensaver" */;
@@ -89,9 +142,13 @@
 		EDA5BCE01C7B6F4700EB191F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = naman14;
 				TargetAttributes = {
+					ED6D72261C7B866500E9A98F = {
+						CreatedOnToolsVersion = 7.2;
+					};
 					EDA5BCE81C7B6F4700EB191F = {
 						CreatedOnToolsVersion = 7.2;
 					};
@@ -103,6 +160,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = EDA5BCDF1C7B6F4700EB191F;
 			productRefGroup = EDA5BCEA1C7B6F4700EB191F /* Products */;
@@ -110,21 +168,43 @@
 			projectRoot = "";
 			targets = (
 				EDA5BCE81C7B6F4700EB191F /* TerminalScreensaver */,
+				ED6D72261C7B866500E9A98F /* ScreensaverApp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		ED6D72251C7B866500E9A98F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED6D722C1C7B866500E9A98F /* Assets.xcassets in Resources */,
+				ED6D722F1C7B866500E9A98F /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EDA5BCE71C7B6F4700EB191F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED6D72221C7B83B800E9A98F /* PreferenceWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		ED6D72231C7B866500E9A98F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED6D72391C7B899900E9A98F /* PreferenceWindow.xib in Sources */,
+				ED6D72381C7B899600E9A98F /* PreferencesWindow.swift in Sources */,
+				ED6D72371C7B894100E9A98F /* TerminalScreensaverView.swift in Sources */,
+				ED6D722A1C7B866500E9A98F /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EDA5BCE41C7B6F4700EB191F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -135,7 +215,45 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		ED6D722D1C7B866500E9A98F /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ED6D722E1C7B866500E9A98F /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		ED6D72321C7B866500E9A98F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ScreensaverApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = com.naman14.ScreensaverApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		ED6D72331C7B866500E9A98F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = ScreensaverApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = com.naman14.ScreensaverApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		EDA5BCF11C7B6F4700EB191F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -224,6 +342,7 @@
 				INFOPLIST_FILE = TerminalScreensaver/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.naman14.TerminalScreensaver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -240,6 +359,7 @@
 				INFOPLIST_FILE = TerminalScreensaver/Info.plist;
 				INSTALL_PATH = "$(HOME)/Library/Screen Savers";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.naman14.TerminalScreensaver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = saver;
@@ -249,6 +369,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		ED6D72311C7B866500E9A98F /* Build configuration list for PBXNativeTarget "ScreensaverApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED6D72321C7B866500E9A98F /* Debug */,
+				ED6D72331C7B866500E9A98F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		EDA5BCE31C7B6F4700EB191F /* Build configuration list for PBXProject "TerminalScreensaver" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

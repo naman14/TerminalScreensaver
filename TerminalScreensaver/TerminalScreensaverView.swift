@@ -12,19 +12,30 @@ import ScreenSaver
 
 class TerminalScreensaverView: ScreenSaverView {
     
+    var text: NSString?
+    
 
     override func drawRect(dirtyRect: NSRect) {
-        super.drawRect(dirtyRect)
-       
+        
+        if let text = text {
+        let point = CGPoint(x: (frame.size.width) / 2, y: (frame.size.height) / 2)
+        text.drawAtPoint(point, withAttributes: nil)
+            
+        }
+        
     }
     
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
+        loadText()
+        
     
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        loadText()
+        
     
     }
     
@@ -48,5 +59,10 @@ class TerminalScreensaverView: ScreenSaverView {
         return nil
     }
     
+    
+    func loadText() {
+       text = "This is a test string"
+        self.needsDisplay = true;
+    }
     
 }
