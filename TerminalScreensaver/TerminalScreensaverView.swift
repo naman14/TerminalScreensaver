@@ -12,14 +12,23 @@ import ScreenSaver
 
 class TerminalScreensaverView: ScreenSaverView {
     
-    var text: NSString?
+    var text: String? = "This is a test string"
     
 
     override func drawRect(dirtyRect: NSRect) {
-        
+        let context: CGContextRef = NSGraphicsContext.currentContext()!.CGContext
+        CGContextSetFillColorWithColor(context, NSColor.blackColor().CGColor);
+        CGContextSetAlpha(context, 1);
+        CGContextFillRect(context, dirtyRect);
+        append("This is a test string")
         if let text = text {
-        let point = CGPoint(x: (frame.size.width) / 2, y: (frame.size.height) / 2)
-        text.drawAtPoint(point, withAttributes: nil)
+        let point = CGPoint(x: 0, y: frame.size.height-20)
+            
+            let textFontAttributes = [
+                NSForegroundColorAttributeName: NSColor.whiteColor()
+            ]
+            
+        text.drawAtPoint(point, withAttributes: textFontAttributes)
             
         }
         
@@ -27,15 +36,12 @@ class TerminalScreensaverView: ScreenSaverView {
     
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
-        loadText()
-        
-    
+        animationTimeInterval = 2
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        loadText()
-        
+        animationTimeInterval = 2
     
     }
     
@@ -48,7 +54,7 @@ class TerminalScreensaverView: ScreenSaverView {
     }
     
     override func animateOneFrame() {
-        
+        needsDisplay = true
     }
     
     override func hasConfigureSheet() -> Bool {
@@ -60,9 +66,8 @@ class TerminalScreensaverView: ScreenSaverView {
     }
     
     
-    func loadText() {
-       text = "This is a test string"
-        self.needsDisplay = true;
+    func append(string: String) {
+        self.text = (self.text)! + string
     }
     
 }
