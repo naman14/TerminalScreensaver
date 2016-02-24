@@ -39,7 +39,7 @@ class TerminalScreensaverView: ScreenSaverView {
     
     @IBAction func applyClick(button: NSButton)
     {
-       
+       NSApp.endSheet(configSheet!)
     }
     
     @IBAction func backgroundColorClick(button: NSColorWell)
