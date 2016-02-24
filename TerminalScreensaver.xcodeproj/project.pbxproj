@@ -12,14 +12,12 @@
 		ED6D722C1C7B866500E9A98F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED6D722B1C7B866500E9A98F /* Assets.xcassets */; };
 		ED6D722F1C7B866500E9A98F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED6D722D1C7B866500E9A98F /* MainMenu.xib */; };
 		ED6D72371C7B894100E9A98F /* TerminalScreensaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */; };
-		ED6D72381C7B899600E9A98F /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6D721D1C7B826600E9A98F /* PreferencesWindow.swift */; };
 		ED6D72391C7B899900E9A98F /* PreferenceWindow.xib in Sources */ = {isa = PBXBuildFile; fileRef = ED6D72211C7B83B800E9A98F /* PreferenceWindow.xib */; };
 		EDA5BCF71C7B726700EB191F /* TerminalScreensaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */; };
 		EDE196D81C7D18F80027BB97 /* CustomTextWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDE196D71C7D18F80027BB97 /* CustomTextWindow.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		ED6D721D1C7B826600E9A98F /* PreferencesWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
 		ED6D72211C7B83B800E9A98F /* PreferenceWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferenceWindow.xib; sourceTree = "<group>"; };
 		ED6D72271C7B866500E9A98F /* ScreensaverApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScreensaverApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6D72291C7B866500E9A98F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 			children = (
 				EDA5BCF01C7B6F4700EB191F /* Info.plist */,
 				EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */,
-				ED6D721D1C7B826600E9A98F /* PreferencesWindow.swift */,
 				ED6D72211C7B83B800E9A98F /* PreferenceWindow.xib */,
 				EDE196D71C7D18F80027BB97 /* CustomTextWindow.xib */,
 			);
@@ -203,7 +200,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED6D72391C7B899900E9A98F /* PreferenceWindow.xib in Sources */,
-				ED6D72381C7B899600E9A98F /* PreferencesWindow.swift in Sources */,
 				ED6D72371C7B894100E9A98F /* TerminalScreensaverView.swift in Sources */,
 				ED6D722A1C7B866500E9A98F /* AppDelegate.swift in Sources */,
 			);

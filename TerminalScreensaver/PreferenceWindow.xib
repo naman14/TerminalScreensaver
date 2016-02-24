@@ -71,7 +71,7 @@ Gw
                         </connections>
                     </button>
                     <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jCu-f6-b59">
-                        <rect key="frame" x="43" y="161" width="76" height="26"/>
+                        <rect key="frame" x="43" y="201" width="76" height="26"/>
                         <popUpButtonCell key="cell" type="push" title="Black" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Lg6-cq-Ej3" id="Nsh-7Q-gT9">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="menu"/>
@@ -84,6 +84,21 @@ Gw
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Bc-kb-leW">
+                        <rect key="frame" x="18" y="161" width="166" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Terminal background color" id="jNu-xL-8pZ">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xRz-5r-9Tc">
+                        <rect key="frame" x="197" y="158" width="44" height="23"/>
+                        <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <connections>
+                            <action selector="backgroundColorClick:" target="-2" id="462-kF-8Ye"/>
+                        </connections>
+                    </colorWell>
                 </subviews>
             </view>
             <point key="canvasLocation" x="565" y="206"/>

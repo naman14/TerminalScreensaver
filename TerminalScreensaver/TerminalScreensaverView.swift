@@ -18,7 +18,14 @@ class TerminalScreensaverView: ScreenSaverView {
     var textContainer: NSTextContainer?
     private var nibArray: NSArray? = nil
     
+    private var terminalColor: NSColor?
+    private var terminalText: NSTextView?
+    
+    static var colorChangeNotification = "Configuration.colorChangeNotification"
+    static var textChangeNotification = "Configuration.textChangeNotification"
+    
     @IBOutlet weak var configSheet: NSWindow! = nil
+    @IBOutlet weak var textConfigSheet: NSWindow! = nil
     
 
     @IBAction func applyClick(button: NSButton)
@@ -26,15 +33,26 @@ class TerminalScreensaverView: ScreenSaverView {
        
     }
     
+    @IBAction func backgroundColorClick(button: NSColorWell)
+    {
+        
+    }
+    
     @IBAction func cancelClick(button: NSButton)
     {
         NSApp.endSheet(configSheet!)
     }
+    @IBAction func cancelTextEditClick(button: NSButton)
+    {
+        NSApp.endSheet(textConfigSheet!)
+    }
     
     @IBAction func enterTextClick(button: NSButton)
     {
+         if textConfigSheet == nil {
         let ourBundle = NSBundle(forClass: self.dynamicType)
         ourBundle.loadNibNamed("CustomTextWindow", owner: self, topLevelObjects: &nibArray)
+        }
     }
     
     @IBAction func saveTextClick(button: NSButton)
@@ -58,17 +76,24 @@ class TerminalScreensaverView: ScreenSaverView {
     
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
+        initialise()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initialise()
+    
+    }
+    
+    private func initialise() {
+         terminalColor = terminalColorPreference
+         terminalText = terminalTextPreference
         
         textContainer = NSTextContainer(containerSize: NSSize(width: frame.size.width, height: frame.size.height))
         layoutmanager.addTextContainer(textContainer!)
         textStorage.addLayoutManager(layoutmanager)
         animationTimeInterval = 1/5
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        animationTimeInterval = 1/5
-    
+
     }
     
     override func startAnimation() {
@@ -104,5 +129,44 @@ class TerminalScreensaverView: ScreenSaverView {
         
         textStorage.setAttributedString(attributedText)
     }
+
+    
+    var terminalColorPreference: NSColor? {
+        get {
+            let color = defaults?.objectForKey("terminalColor") as? NSColor
+            return color
+        }
+        
+        set {
+            if let color = newValue {
+                defaults?.setObject(color, forKey: "terminalColor")
+            } else {
+                defaults?.removeObjectForKey("terminalColor")
+            }
+            defaults?.synchronize()
+            
+           //TODO update the defaults
+        }
+    }
+    
+    var terminalTextPreference: NSTextView? {
+        get {
+            let text = defaults?.objectForKey("terminalText") as? NSTextView
+            return text
+        }
+        
+        set {
+            defaults?.setObject(newValue, forKey: "terminalText")
+            defaults?.synchronize()
+            
+            //TODO update the defaults
+        }
+    }
+    
+    private let defaults: ScreenSaverDefaults? = {
+        let bundleIdentifier = NSBundle(forClass: TerminalScreensaverView.self).bundleIdentifier
+        return bundleIdentifier.flatMap { ScreenSaverDefaults(forModuleWithName: $0) }
+    }()
+
     
 }
