@@ -23,12 +23,16 @@ class TerminalScreensaverView: ScreenSaverView {
     private var terminalColor: NSColor?
     private var terminalTextColor: NSColor?
     private var terminalText: NSString?
+    private var isDelayRandom: Bool?
     
     @IBOutlet weak var configSheet: NSWindow! = nil
     @IBOutlet weak var textConfigSheet: NSWindow! = nil
     @IBOutlet weak var terminalColorWell: NSColorWell?
     @IBOutlet weak var terminalTextColorWell: NSColorWell?
+    @IBOutlet weak var lineDelay: NSTextField?
+    @IBOutlet weak var isDelayRandomButton: NSButton?
     @IBOutlet var terminalTextView: NSTextView?
+    
 
     
     @IBAction func applyClick(button: NSButton)
@@ -53,6 +57,15 @@ class TerminalScreensaverView: ScreenSaverView {
     {
         NSApp.endSheet(textConfigSheet!)
     }
+    @IBAction func delayRandomStateChange(button: NSButton)
+    {
+        if(button.state == NSOnState) {
+           delayRandomPreference = true
+        }
+         else {
+            delayRandomPreference = false
+        }
+    }
     
     @IBAction func enterTextClick(button: NSButton)
     {
@@ -69,7 +82,6 @@ class TerminalScreensaverView: ScreenSaverView {
     {
         terminalTextPreference = (terminalTextView?.string)!
     }
-    
     
     override func drawRect(dirtyRect: NSRect) {
         let context: CGContextRef = NSGraphicsContext.currentContext()!.CGContext
@@ -104,6 +116,7 @@ class TerminalScreensaverView: ScreenSaverView {
         terminalColor = terminalColorPreference
         terminalTextColor = terminalTextColorPreference
         terminalText = terminalTextPreference
+        isDelayRandom = delayRandomPreference
         
         textContainer = NSTextContainer(containerSize: NSSize(width: frame.size.width, height: frame.size.height))
         layoutmanager.addTextContainer(textContainer!)
@@ -134,6 +147,11 @@ class TerminalScreensaverView: ScreenSaverView {
             ourBundle.loadNibNamed("PreferenceWindow", owner: self, topLevelObjects: &nibArray)
             terminalColorWell!.color = terminalColorPreference
             terminalTextColorWell!.color = terminalTextColorPreference
+            if(delayRandomPreference){
+                isDelayRandomButton?.state = NSOnState
+            } else {
+                isDelayRandomButton?.state = NSOffState
+            }
         }
         return configSheet
     }
@@ -194,5 +212,21 @@ class TerminalScreensaverView: ScreenSaverView {
             }
         }
     }
+    
+    var delayRandomPreference: Bool {
+        set(newValue) {
+            defaults.setBool(newValue, forKey: "isDelayRandom")
+            defaults.synchronize()
+        }
+        get {
+            if let bool = defaults.boolForKey("isDelayRandom") as Bool? {
+                return bool
+            }
+            else {
+                return false
+            }
+        }
+    }
+
     
 }
