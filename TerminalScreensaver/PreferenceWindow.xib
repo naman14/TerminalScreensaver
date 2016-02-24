@@ -7,6 +7,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TerminalScreensaverView" customModule="TerminalScreensaver">
             <connections>
                 <outlet property="configSheet" destination="SZ8-ds-oe1" id="tzx-hk-tkl"/>
+                <outlet property="terminalColorWell" destination="xRz-5r-9Tc" id="lTW-MI-2hq"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>

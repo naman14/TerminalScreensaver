@@ -26,6 +26,7 @@ class TerminalScreensaverView: ScreenSaverView {
     
     @IBOutlet weak var configSheet: NSWindow! = nil
     @IBOutlet weak var textConfigSheet: NSWindow! = nil
+    @IBOutlet weak var terminalColorWell: NSColorWell?
     
 
     @IBAction func applyClick(button: NSButton)
@@ -35,7 +36,7 @@ class TerminalScreensaverView: ScreenSaverView {
     
     @IBAction func backgroundColorClick(button: NSColorWell)
     {
-        
+        terminalColorPreference = terminalColorWell!.color
     }
     
     @IBAction func cancelClick(button: NSButton)
@@ -63,7 +64,7 @@ class TerminalScreensaverView: ScreenSaverView {
     
     override func drawRect(dirtyRect: NSRect) {
         let context: CGContextRef = NSGraphicsContext.currentContext()!.CGContext
-        CGContextSetFillColorWithColor(context, NSColor.blackColor().CGColor);
+        CGContextSetFillColorWithColor(context, terminalColor?.CGColor);
         CGContextSetAlpha(context, 1);
         CGContextFillRect(context, dirtyRect);
         append(" This is a test string")
