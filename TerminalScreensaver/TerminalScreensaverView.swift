@@ -21,10 +21,12 @@ class TerminalScreensaverView: ScreenSaverView {
     var defaults: NSUserDefaults
     
     private var terminalColor: NSColor?
+    private var terminalTextColor: NSColor?
     
     @IBOutlet weak var configSheet: NSWindow! = nil
     @IBOutlet weak var textConfigSheet: NSWindow! = nil
     @IBOutlet weak var terminalColorWell: NSColorWell?
+    @IBOutlet weak var terminalTextColorWell: NSColorWell?
     
 
     @IBAction func applyClick(button: NSButton)
@@ -35,6 +37,10 @@ class TerminalScreensaverView: ScreenSaverView {
     @IBAction func backgroundColorClick(button: NSColorWell)
     {
         terminalColorPreference = terminalColorWell!.color
+    }
+    @IBAction func terminalTextColorClick(button: NSColorWell)
+    {
+        terminalTextColorPreference = terminalTextColorWell!.color
     }
     
     @IBAction func cancelClick(button: NSButton)
@@ -91,6 +97,7 @@ class TerminalScreensaverView: ScreenSaverView {
     private func initialise() {
         
         terminalColor = terminalColorPreference
+        terminalTextColor = terminalTextColorPreference
         
         textContainer = NSTextContainer(containerSize: NSSize(width: frame.size.width, height: frame.size.height))
         layoutmanager.addTextContainer(textContainer!)
@@ -120,6 +127,7 @@ class TerminalScreensaverView: ScreenSaverView {
             let ourBundle = NSBundle(forClass: self.dynamicType)
             ourBundle.loadNibNamed("PreferenceWindow", owner: self, topLevelObjects: &nibArray)
             terminalColorWell!.color = terminalColorPreference
+            terminalTextColorWell!.color = terminalTextColorPreference
         }
         return configSheet
     }
@@ -129,7 +137,7 @@ class TerminalScreensaverView: ScreenSaverView {
         self.text = ((self.text)! as String) + (string as String)
         let attributedText = NSMutableAttributedString(string: text! as String)
         
-         attributedText.addAttribute(NSForegroundColorAttributeName , value:NSColor.whiteColor(),range: NSMakeRange(0, text!.length))
+         attributedText.addAttribute(NSForegroundColorAttributeName , value:terminalTextColor!,range: NSMakeRange(0, text!.length))
         
         textStorage.setAttributedString(attributedText)
     }
@@ -147,6 +155,21 @@ class TerminalScreensaverView: ScreenSaverView {
             }
             else {
                 return NSColor.blackColor()
+            }
+        }
+    }
+    
+    var terminalTextColorPreference: NSColor {
+        set(newColor) {
+            defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(newColor), forKey: "terminalTextColor")
+            defaults.synchronize()
+        }
+        get {
+            if let terminalColorData = defaults.objectForKey("terminalTextColor") as? NSData {
+                return (NSKeyedUnarchiver.unarchiveObjectWithData(terminalColorData) as? NSColor)!
+            }
+            else {
+                return NSColor.whiteColor()
             }
         }
     }
