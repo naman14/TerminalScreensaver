@@ -15,6 +15,7 @@
 		ED6D72381C7B899600E9A98F /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6D721D1C7B826600E9A98F /* PreferencesWindow.swift */; };
 		ED6D72391C7B899900E9A98F /* PreferenceWindow.xib in Sources */ = {isa = PBXBuildFile; fileRef = ED6D72211C7B83B800E9A98F /* PreferenceWindow.xib */; };
 		EDA5BCF71C7B726700EB191F /* TerminalScreensaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */; };
+		EDE196D81C7D18F80027BB97 /* CustomTextWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDE196D71C7D18F80027BB97 /* CustomTextWindow.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		EDA5BCE91C7B6F4700EB191F /* TerminalScreensaver.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TerminalScreensaver.saver; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA5BCF01C7B6F4700EB191F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalScreensaverView.swift; sourceTree = "<group>"; };
+		EDE196D71C7D18F80027BB97 /* CustomTextWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTextWindow.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */,
 				ED6D721D1C7B826600E9A98F /* PreferencesWindow.swift */,
 				ED6D72211C7B83B800E9A98F /* PreferenceWindow.xib */,
+				EDE196D71C7D18F80027BB97 /* CustomTextWindow.xib */,
 			);
 			path = TerminalScreensaver;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED6D72221C7B83B800E9A98F /* PreferenceWindow.xib in Resources */,
+				EDE196D81C7D18F80027BB97 /* CustomTextWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +349,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.naman14.TerminalScreensaver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = saver;
 			};
@@ -362,6 +367,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.naman14.TerminalScreensaver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "";
 				WRAPPER_EXTENSION = saver;
 			};
 			name = Release;
@@ -376,6 +382,7 @@
 				ED6D72331C7B866500E9A98F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EDA5BCE31C7B6F4700EB191F /* Build configuration list for PBXProject "TerminalScreensaver" */ = {
 			isa = XCConfigurationList;

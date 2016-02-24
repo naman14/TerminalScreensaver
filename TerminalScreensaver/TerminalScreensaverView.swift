@@ -16,7 +16,29 @@ class TerminalScreensaverView: ScreenSaverView {
     var textStorage = NSTextStorage(string: " ");
     var layoutmanager = NSLayoutManager();
     var textContainer: NSTextContainer?
+    private var nibArray: NSArray? = nil
     
+    @IBOutlet weak var configSheet: NSWindow! = nil
+    
+
+    @IBAction func applyClick(button: NSButton)
+    {
+       
+    }
+    
+    @IBAction func enterTextClick(button: NSButton)
+    {
+        let ourBundle = NSBundle(forClass: self.dynamicType)
+        ourBundle.loadNibNamed("CustomTextWindow", owner: self, topLevelObjects: &nibArray)
+    }
+    
+    @IBAction func saveTextClick(button: NSButton)
+    {
+        
+    }
+    
+    
+
     
     override func drawRect(dirtyRect: NSRect) {
         let context: CGContextRef = NSGraphicsContext.currentContext()!.CGContext
@@ -26,7 +48,7 @@ class TerminalScreensaverView: ScreenSaverView {
         append(" This is a test string")
         
         let range: NSRange = layoutmanager.glyphRangeForTextContainer(textContainer!)
-        let point = CGPoint(x: 0, y: 0)
+        let point = CGPoint(x: 0, y: frame.size.height/2)
         layoutmanager.drawGlyphsForGlyphRange(range, atPoint: point)
         
     }
@@ -37,12 +59,12 @@ class TerminalScreensaverView: ScreenSaverView {
         textContainer = NSTextContainer(containerSize: NSSize(width: frame.size.width, height: frame.size.height))
         layoutmanager.addTextContainer(textContainer!)
         textStorage.addLayoutManager(layoutmanager)
-        animationTimeInterval = 2
+        animationTimeInterval = 1/5
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        animationTimeInterval = 2
+        animationTimeInterval = 1/5
     
     }
     
@@ -59,11 +81,15 @@ class TerminalScreensaverView: ScreenSaverView {
     }
     
     override func hasConfigureSheet() -> Bool {
-        return false
+        return true
     }
     
     override func configureSheet() -> NSWindow? {
-        return nil
+        if configSheet == nil {
+            let ourBundle = NSBundle(forClass: self.dynamicType)
+            ourBundle.loadNibNamed("PreferenceWindow", owner: self, topLevelObjects: &nibArray)
+        }
+        return configSheet
     }
     
     
