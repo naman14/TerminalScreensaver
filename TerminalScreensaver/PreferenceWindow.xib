@@ -4,11 +4,15 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="TerminalScreensaverView" customModule="TerminalScreensaver"/>
+        <customObject id="-2" userLabel="File's Owner" customClass="TerminalScreensaverView" customModule="TerminalScreensaver">
+            <connections>
+                <outlet property="configSheet" destination="SZ8-ds-oe1" id="tzx-hk-tkl"/>
+            </connections>
+        </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" frameAutosaveName="" animationBehavior="default" id="SZ8-ds-oe1">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="SZ8-ds-oe1">
+            <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="109" y="131" width="480" height="270"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
@@ -36,7 +40,7 @@ Gw
 </string>
                         </buttonCell>
                         <connections>
-                            <action selector="performClose:" target="SZ8-ds-oe1" id="k3y-lU-soR"/>
+                            <action selector="cancelClick:" target="-2" id="n1x-st-eMq"/>
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Sc-Is-PaY">
@@ -82,7 +86,7 @@ Gw
                     </popUpButton>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="596" y="206"/>
+            <point key="canvasLocation" x="565" y="206"/>
         </window>
     </objects>
 </document>

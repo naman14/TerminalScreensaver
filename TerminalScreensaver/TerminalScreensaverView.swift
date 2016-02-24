@@ -26,6 +26,11 @@ class TerminalScreensaverView: ScreenSaverView {
        
     }
     
+    @IBAction func cancelClick(button: NSButton)
+    {
+        NSApp.endSheet(configSheet!)
+    }
+    
     @IBAction func enterTextClick(button: NSButton)
     {
         let ourBundle = NSBundle(forClass: self.dynamicType)
@@ -37,8 +42,6 @@ class TerminalScreensaverView: ScreenSaverView {
         
     }
     
-    
-
     
     override func drawRect(dirtyRect: NSRect) {
         let context: CGContextRef = NSGraphicsContext.currentContext()!.CGContext
