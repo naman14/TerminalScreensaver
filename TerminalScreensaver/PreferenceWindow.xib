@@ -8,6 +8,8 @@
             <connections>
                 <outlet property="configSheet" destination="SZ8-ds-oe1" id="tzx-hk-tkl"/>
                 <outlet property="isDelayRandomButton" destination="FB4-yT-5kB" id="Rde-Hd-B3V"/>
+                <outlet property="lineDelaySlider" destination="d1i-ME-vyk" id="cDB-eT-IYy"/>
+                <outlet property="lineDelaySliderLabel" destination="BAj-rU-G8q" id="49G-TE-xpw"/>
                 <outlet property="terminalColorWell" destination="xRz-5r-9Tc" id="lTW-MI-2hq"/>
                 <outlet property="terminalTextColorWell" destination="NHw-BQ-Q5X" id="1po-kC-kDj"/>
             </connections>
@@ -94,10 +96,6 @@ Gw
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d1i-ME-vyk">
-                        <rect key="frame" x="232" y="115" width="140" height="21"/>
-                        <sliderCell key="cell" state="on" alignment="left" maxValue="100" doubleValue="50" tickMarkPosition="above" sliderType="linear" id="P9s-kC-tDy"/>
-                    </slider>
                     <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="Qfe-Aa-ALo">
                         <rect key="frame" x="32" y="145" width="282" height="5"/>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
@@ -146,6 +144,21 @@ Gw
                             <action selector="delayRandomStateChange:" target="-2" id="25V-iT-9b3"/>
                         </connections>
                     </button>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BAj-rU-G8q">
+                        <rect key="frame" x="284" y="98" width="87" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="2 seconds" id="BgU-Nd-2hJ">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d1i-ME-vyk">
+                        <rect key="frame" x="231" y="111" width="140" height="26"/>
+                        <sliderCell key="cell" continuous="YES" alignment="left" minValue="1" maxValue="10" doubleValue="2" tickMarkPosition="above" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="P9s-kC-tDy"/>
+                        <connections>
+                            <action selector="lineDelaySliderChange:" target="-2" id="jcz-F1-vPz"/>
+                        </connections>
+                    </slider>
                 </subviews>
             </view>
             <point key="canvasLocation" x="530" y="240"/>

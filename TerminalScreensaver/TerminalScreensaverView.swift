@@ -24,13 +24,15 @@ class TerminalScreensaverView: ScreenSaverView {
     private var terminalTextColor: NSColor?
     private var terminalText: NSString?
     private var isDelayRandom: Bool?
+    private var lineDelay: Int?
     
     @IBOutlet weak var configSheet: NSWindow! = nil
     @IBOutlet weak var textConfigSheet: NSWindow! = nil
     @IBOutlet weak var terminalColorWell: NSColorWell?
     @IBOutlet weak var terminalTextColorWell: NSColorWell?
-    @IBOutlet weak var lineDelay: NSTextField?
     @IBOutlet weak var isDelayRandomButton: NSButton?
+    @IBOutlet weak var lineDelaySlider: NSSlider?
+    @IBOutlet weak var lineDelaySliderLabel: NSTextField?
     @IBOutlet var terminalTextView: NSTextView?
     
 
@@ -65,6 +67,11 @@ class TerminalScreensaverView: ScreenSaverView {
          else {
             delayRandomPreference = false
         }
+    }
+    @IBAction func lineDelaySliderChange(slider: NSSlider)
+    {
+       lineDelayPreference = slider.integerValue
+       lineDelaySliderLabel?.stringValue = "\(slider.integerValue) seconds"
     }
     
     @IBAction func enterTextClick(button: NSButton)
@@ -117,6 +124,7 @@ class TerminalScreensaverView: ScreenSaverView {
         terminalTextColor = terminalTextColorPreference
         terminalText = terminalTextPreference
         isDelayRandom = delayRandomPreference
+        lineDelay = lineDelayPreference
         
         textContainer = NSTextContainer(containerSize: NSSize(width: frame.size.width, height: frame.size.height))
         layoutmanager.addTextContainer(textContainer!)
@@ -147,6 +155,8 @@ class TerminalScreensaverView: ScreenSaverView {
             ourBundle.loadNibNamed("PreferenceWindow", owner: self, topLevelObjects: &nibArray)
             terminalColorWell!.color = terminalColorPreference
             terminalTextColorWell!.color = terminalTextColorPreference
+            lineDelaySlider?.integerValue = lineDelayPreference
+            lineDelaySliderLabel?.stringValue = "\(lineDelay!) seconds"
             if(delayRandomPreference){
                 isDelayRandomButton?.state = NSOnState
             } else {
@@ -224,6 +234,21 @@ class TerminalScreensaverView: ScreenSaverView {
             }
             else {
                 return false
+            }
+        }
+    }
+    
+    var lineDelayPreference: Int {
+        set(newValue) {
+            defaults.setInteger(newValue, forKey: "lineDelayInt")
+            defaults.synchronize()
+        }
+        get {
+            if let integer = defaults.integerForKey("lineDelayInt") as Int? {
+                return integer
+            }
+            else {
+                return 2
             }
         }
     }
