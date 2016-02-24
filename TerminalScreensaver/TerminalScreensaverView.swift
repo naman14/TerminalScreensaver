@@ -18,11 +18,9 @@ class TerminalScreensaverView: ScreenSaverView {
     var textContainer: NSTextContainer?
     private var nibArray: NSArray? = nil
     
-    private var terminalColor: NSColor?
-    private var terminalText: NSTextView?
+    var defaults: NSUserDefaults
     
-    static var colorChangeNotification = "Configuration.colorChangeNotification"
-    static var textChangeNotification = "Configuration.textChangeNotification"
+    private var terminalColor: NSColor?
     
     @IBOutlet weak var configSheet: NSWindow! = nil
     @IBOutlet weak var textConfigSheet: NSWindow! = nil
@@ -76,19 +74,23 @@ class TerminalScreensaverView: ScreenSaverView {
     }
     
     override init?(frame: NSRect, isPreview: Bool) {
+        let identifier = NSBundle(forClass: TerminalScreensaverView.self).bundleIdentifier
+        defaults = ScreenSaverDefaults(forModuleWithName: identifier!)!
         super.init(frame: frame, isPreview: isPreview)
         initialise()
     }
     
     required init?(coder: NSCoder) {
+        let identifier = NSBundle(forClass: TerminalScreensaverView.self).bundleIdentifier
+        defaults = ScreenSaverDefaults(forModuleWithName: identifier!)!
         super.init(coder: coder)
         initialise()
     
     }
     
     private func initialise() {
-         terminalColor = terminalColorPreference
-         terminalText = terminalTextPreference
+        
+        terminalColor = terminalColorPreference
         
         textContainer = NSTextContainer(containerSize: NSSize(width: frame.size.width, height: frame.size.height))
         layoutmanager.addTextContainer(textContainer!)
@@ -117,6 +119,7 @@ class TerminalScreensaverView: ScreenSaverView {
         if configSheet == nil {
             let ourBundle = NSBundle(forClass: self.dynamicType)
             ourBundle.loadNibNamed("PreferenceWindow", owner: self, topLevelObjects: &nibArray)
+            terminalColorWell!.color = terminalColorPreference
         }
         return configSheet
     }
@@ -132,42 +135,20 @@ class TerminalScreensaverView: ScreenSaverView {
     }
 
     
-    var terminalColorPreference: NSColor? {
-        get {
-            let color = defaults?.objectForKey("terminalColor") as? NSColor
-            return color
-        }
-        
-        set {
-            if let color = newValue {
-                defaults?.setObject(color, forKey: "terminalColor")
-            } else {
-                defaults?.removeObjectForKey("terminalColor")
-            }
-            defaults?.synchronize()
-            
-           //TODO update the defaults
-        }
-    }
-    
-    var terminalTextPreference: NSTextView? {
-        get {
-            let text = defaults?.objectForKey("terminalText") as? NSTextView
-            return text
-        }
-        
-        set {
-            defaults?.setObject(newValue, forKey: "terminalText")
-            defaults?.synchronize()
-            
-            //TODO update the defaults
-        }
-    }
-    
-    private let defaults: ScreenSaverDefaults? = {
-        let bundleIdentifier = NSBundle(forClass: TerminalScreensaverView.self).bundleIdentifier
-        return bundleIdentifier.flatMap { ScreenSaverDefaults(forModuleWithName: $0) }
-    }()
 
+    var terminalColorPreference: NSColor {
+        set(newColor) {
+            defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(newColor), forKey: "terminalColor")
+            defaults.synchronize()
+        }
+        get {
+            if let terminalColorData = defaults.objectForKey("terminalColor") as? NSData {
+                return (NSKeyedUnarchiver.unarchiveObjectWithData(terminalColorData) as? NSColor)!
+            }
+            else {
+                return NSColor.blackColor()
+            }
+        }
+    }
     
 }
