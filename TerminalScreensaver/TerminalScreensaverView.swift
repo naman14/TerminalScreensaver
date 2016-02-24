@@ -22,13 +22,15 @@ class TerminalScreensaverView: ScreenSaverView {
     
     private var terminalColor: NSColor?
     private var terminalTextColor: NSColor?
+    private var terminalText: NSString?
     
     @IBOutlet weak var configSheet: NSWindow! = nil
     @IBOutlet weak var textConfigSheet: NSWindow! = nil
     @IBOutlet weak var terminalColorWell: NSColorWell?
     @IBOutlet weak var terminalTextColorWell: NSColorWell?
-    
+    @IBOutlet var terminalTextView: NSTextView?
 
+    
     @IBAction func applyClick(button: NSButton)
     {
        
@@ -57,12 +59,15 @@ class TerminalScreensaverView: ScreenSaverView {
          if textConfigSheet == nil {
         let ourBundle = NSBundle(forClass: self.dynamicType)
         ourBundle.loadNibNamed("CustomTextWindow", owner: self, topLevelObjects: &nibArray)
+         terminalTextView?.string = terminalTextPreference as String
+            terminalTextView?.editable = true
+            terminalTextView?.selectable
         }
     }
     
     @IBAction func saveTextClick(button: NSButton)
     {
-        
+        terminalTextPreference = (terminalTextView?.string)!
     }
     
     
@@ -71,7 +76,7 @@ class TerminalScreensaverView: ScreenSaverView {
         CGContextSetFillColorWithColor(context, terminalColor?.CGColor);
         CGContextSetAlpha(context, 1);
         CGContextFillRect(context, dirtyRect);
-        append(" This is a test string")
+        append(terminalText!)
         
         let range: NSRange = layoutmanager.glyphRangeForTextContainer(textContainer!)
         let point = CGPoint(x: 0, y: frame.size.height/2)
@@ -98,6 +103,7 @@ class TerminalScreensaverView: ScreenSaverView {
         
         terminalColor = terminalColorPreference
         terminalTextColor = terminalTextColorPreference
+        terminalText = terminalTextPreference
         
         textContainer = NSTextContainer(containerSize: NSSize(width: frame.size.width, height: frame.size.height))
         layoutmanager.addTextContainer(textContainer!)
@@ -170,6 +176,21 @@ class TerminalScreensaverView: ScreenSaverView {
             }
             else {
                 return NSColor.whiteColor()
+            }
+        }
+    }
+    
+    var terminalTextPreference: NSString {
+        set(newValue) {
+            defaults.setObject(newValue, forKey: "terminalText")
+            defaults.synchronize()
+        }
+        get {
+            if let terminaltextData = defaults.objectForKey("terminalText") as? NSString {
+                return terminaltextData
+            }
+            else {
+                return NSString(string: "This is a lol string")
             }
         }
     }
