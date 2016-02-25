@@ -32,6 +32,7 @@ class TerminalScreensaverView: ScreenSaverView {
     @IBOutlet var terminalTextView: NSTextView?
     
     private var textLabel: NSTextView?
+    private var scrollView: NSScrollView?
     
     private var list: [NSString] = []
     private var readPosition: Int = 0
@@ -91,16 +92,6 @@ class TerminalScreensaverView: ScreenSaverView {
     
     override func drawRect(dirtyRect: NSRect) {
         
-        let backgroundColor: NSColor = terminalColor!
-        backgroundColor.setFill()
-        NSBezierPath.fillRect(bounds)
-        
-        if(readPosition < list.count) {
-            append(list[readPosition])
-            append("\n")
-            readPosition+=1
-        }
-        
     }
     
     override init?(frame: NSRect, isPreview: Bool) {
@@ -130,13 +121,30 @@ class TerminalScreensaverView: ScreenSaverView {
         isDelayRandom = delayRandomPreference
         lineDelay = lineDelayPreference
         
-        textLabel = NSTextView(frame: bounds)
-        textLabel!.frame = self.bounds
+        scrollView = NSScrollView(frame: bounds)
+        scrollView?.hasVerticalScroller = true
+        scrollView?.hasHorizontalScroller = false
+        scrollView?.backgroundColor = terminalColor!
+    
+        scrollView?.autoresizingMask = NSAutoresizingMaskOptions([.ViewWidthSizable,.ViewHeightSizable]);
+        let contentSize: NSSize = (scrollView?.contentSize)!
+        
+        textLabel = NSTextView(frame: NSMakeRect(0, 0, contentSize.width, contentSize.height))
+        textLabel?.minSize = NSMakeSize(0.0, contentSize.height)
+        textLabel?.maxSize = NSMakeSize(CGFloat(FLT_MAX), CGFloat(FLT_MAX))
+        textLabel?.verticallyResizable = true
+        textLabel?.horizontallyResizable = false
+        textLabel!.autoresizingMask = NSAutoresizingMaskOptions([.ViewWidthSizable]);
+        textLabel?.textContainer?.containerSize = NSMakeSize(contentSize.width, CGFloat(FLT_MAX))
+        textLabel?.textContainer?.widthTracksTextView = true
         textLabel!.translatesAutoresizingMaskIntoConstraints = false
         textLabel!.editable = false
         textLabel!.drawsBackground = false
         textLabel!.selectable = false
-        addSubview(textLabel!)
+        
+        scrollView?.documentView = textLabel
+        
+        addSubview(scrollView!)
         
         animationTimeInterval = 1/5
         
@@ -172,7 +180,11 @@ class TerminalScreensaverView: ScreenSaverView {
     }
     
     override func animateOneFrame() {
-        needsDisplay = true
+        if(readPosition < list.count) {
+            append(list[readPosition])
+            append("\n")
+            readPosition+=1
+        }
     }
     
     override func hasConfigureSheet() -> Bool {
@@ -198,10 +210,11 @@ class TerminalScreensaverView: ScreenSaverView {
     
     
     func append(string: NSString) {
+        let textView = scrollView?.documentView as! NSTextView
         let attributedString = NSMutableAttributedString(string: string as String)
         attributedString.addAttribute(NSForegroundColorAttributeName , value:terminalTextColor!,range: NSMakeRange(0, string.length))
-        textLabel?.textStorage?.appendAttributedString(attributedString)
-        textLabel?.scrollRangeToVisible(NSMakeRange((textLabel?.string!.characters.count)!, 0))
+        textView.textStorage?.appendAttributedString(attributedString)
+        textView.scrollToEndOfDocument(nil)
     }
     
     
