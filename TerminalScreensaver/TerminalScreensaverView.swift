@@ -132,18 +132,19 @@ class TerminalScreensaverView: ScreenSaverView {
         
         textLabel = NSTextView(frame: bounds)
         textLabel!.frame = self.bounds
-        textLabel!.textColor = terminalTextColor
         textLabel!.translatesAutoresizingMaskIntoConstraints = false
         textLabel!.editable = false
         textLabel!.drawsBackground = false
         textLabel!.selectable = false
         addSubview(textLabel!)
         
-        if((isDelayRandom) != nil) {
-            animationTimeInterval = Double(lineDelay!)
-        } else {
-            animationTimeInterval = Double(arc4random_uniform(9))
-        }
+        animationTimeInterval = 1/5
+        
+//        if((isDelayRandom) != nil) {
+//            animationTimeInterval = 1/5
+//        } else {
+//            animationTimeInterval = 1/5
+//        }
         
     }
     
@@ -197,9 +198,10 @@ class TerminalScreensaverView: ScreenSaverView {
     
     
     func append(string: NSString) {
-        textLabel?.textStorage?.appendAttributedString(NSAttributedString(string: string as String))
-        //        textLabel?.scrollRangeToVisible(NSMakeRange((textLabel?.string!.characters.count)!, 0))
-        textLabel?.scrollToEndOfDocument(self.textLabel)
+        let attributedString = NSMutableAttributedString(string: string as String)
+        attributedString.addAttribute(NSForegroundColorAttributeName , value:terminalTextColor!,range: NSMakeRange(0, string.length))
+        textLabel?.textStorage?.appendAttributedString(attributedString)
+        textLabel?.scrollRangeToVisible(NSMakeRange((textLabel?.string!.characters.count)!, 0))
     }
     
     

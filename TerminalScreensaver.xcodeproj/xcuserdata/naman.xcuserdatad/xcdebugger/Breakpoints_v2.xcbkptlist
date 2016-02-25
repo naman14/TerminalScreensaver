@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "196"
             endingLineNumber = "196"
-            landmarkName = "append(_:)"
+            landmarkName = "configureSheet()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -127,23 +127,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "169"
             endingLineNumber = "169"
-            landmarkName = "animateOneFrame()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TerminalScreensaver/TerminalScreensaverView.swift"
-            timestampString = "478106042.362937"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "initialise()"
+            landmarkName = "stopAnimation()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
