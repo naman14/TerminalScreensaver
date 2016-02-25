@@ -1,0 +1,94 @@
+1.0
+commit f527ef052c98347da635be8814b195af299a5246
+Author: naman14 
+Date:   Fri Jan 29 05:19:44 2016 +0530
+
+    demo changes
+
+submodule status:
+Run gradle build
+Gradle build script
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
+Downloading https://services.gradle.org/distributions/gradle-2.10-all.zip
+.............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+Unzipping /home/jitpack/.gradle/wrapper/dists/gradle-2.10-all/a4w5fzrkeut1ox71xslb49gst/gradle-2.10-all.zip to /home/jitpack/.gradle/wrapper/dists/gradle-2.10-all/a4w5fzrkeut1ox71xslb49gst
+Set executable permissions for: /home/jitpack/.gradle/wrapper/dists/gradle-2.10-all/a4w5fzrkeut1ox71xslb49gst/gradle-2.10/bin/gradle
+
+------------------------------------------------------------
+Gradle 2.10
+------------------------------------------------------------
+
+Build time:   2015-12-21 21:15:04 UTC
+Build number: none
+Revision:     276bdcded730f53aa8c11b479986aafa58e124a6
+
+Groovy:       2.4.4
+Ant:          Apache Ant(TM) version 1.9.3 compiled on December 23 2013
+JVM:          1.7.0_76 (Oracle Corporation 24.76-b04)
+OS:           Linux 3.14.32-xxxx-grs-ipv6-64 amd64
+
+Getting a list of gradle tasks
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':tasks'.
+> Exception thrown while executing model rule: NdkComponentModelPlugin.Rules#createNativeLibrary
+   > Exception thrown while executing model rule: NdkComponentModelPlugin.Rules#createNativeLibrary > create(androidlame)
+      > java.lang.NullPointerException (no error message)
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+WARNING:
+Gradle 'install' task not found. Please add the 'maven' or 'android-maven' plugin.
+See the documentation and examples: https://jitpack.io/docs/
+
+Looking for android-library
+Looking for com.android.application
+Adding maven plugin
+Running: ./gradlew clean -Pgroup=com.github.naman14 -Pversion=1.0 install
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
+Defining custom 'clean' task when using the standard Gradle lifecycle plugins has been deprecated and is scheduled to be removed in Gradle 3.0
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+A problem occurred configuring project ':androidlame'.
+> Exception thrown while executing model rule: NdkComponentModelPlugin.Rules#createNativeLibrary
+   > Exception thrown while executing model rule: NdkComponentModelPlugin.Rules#createNativeLibrary > create(androidlame)
+      > java.lang.NullPointerException (no error message)
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 0.724 secs
+Gradle exit code 1
+Running: gradle clean -Pgroup=com.github.naman14 -Pversion=1.0 install
+Picked up JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8
+Starting a new Gradle Daemon for this build (subsequent builds will be faster).
+Defining custom 'clean' task when using the standard Gradle lifecycle plugins has been deprecated and is scheduled to be removed in Gradle 3.0
+
+FAILURE: Build failed with an exception.
+
+* Where:
+Build file '/home/jitpack/build/androidlame/build.gradle' line: 1
+
+* What went wrong:
+A problem occurred evaluating project ':androidlame'.
+> Failed to apply plugin [class 'com.android.build.gradle.model.AndroidComponentModelPlugin']
+   > Gradle version 2.10 is required. Current version is 2.7. If using the gradle wrapper, try editing the distributionUrl in /home/jitpack/build/gradle/wrapper/gradle-wrapper.properties to gradle-2.10-all.zip
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 8.352 secs
+EXIT_CODE=1
+2016-02-13T18:40:55.449929403Z
+Exit code: 1
+No build artifacts found

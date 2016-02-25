@@ -13,9 +13,6 @@ import ScreenSaver
 class TerminalScreensaverView: ScreenSaverView {
     
     var text: NSString? = ""
-    var textStorage = NSTextStorage(string: " ");
-    var layoutmanager = NSLayoutManager();
-    var textContainer: NSTextContainer?
     private var nibArray: NSArray? = nil
     
     var defaults: NSUserDefaults
@@ -35,8 +32,20 @@ class TerminalScreensaverView: ScreenSaverView {
     @IBOutlet weak var lineDelaySliderLabel: NSTextField?
     @IBOutlet var terminalTextView: NSTextView?
     
-
+    private let textLabel: NSTextField = {
+        let label = NSTextField()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.editable = false
+        label.drawsBackground = false
+        label.bordered = false
+        label.bezeled = false
+        label.selectable = false
+        return label
+    }()
     
+    private var list: [NSString] = []
+    private var readPosition: Int = 0
+
     @IBAction func applyClick(button: NSButton)
     {
        NSApp.endSheet(configSheet!)
@@ -91,30 +100,33 @@ class TerminalScreensaverView: ScreenSaverView {
     }
     
     override func drawRect(dirtyRect: NSRect) {
-        let context: CGContextRef = NSGraphicsContext.currentContext()!.CGContext
-        CGContextSetFillColorWithColor(context, terminalColor?.CGColor);
-        CGContextSetAlpha(context, 1);
-        CGContextFillRect(context, dirtyRect);
-        append(terminalText!)
+    
+        let backgroundColor: NSColor = terminalColor!
+        backgroundColor.setFill()
+        NSBezierPath.fillRect(bounds)
         
-        let range: NSRange = layoutmanager.glyphRangeForTextContainer(textContainer!)
-        let point = CGPoint(x: 0, y: frame.size.height/2)
-        layoutmanager.drawGlyphsForGlyphRange(range, atPoint: point)
+        append(list[readPosition])
+        append("\n")
+        readPosition+=1
         
-    }
+           }
     
     override init?(frame: NSRect, isPreview: Bool) {
         let identifier = NSBundle(forClass: TerminalScreensaverView.self).bundleIdentifier
         defaults = ScreenSaverDefaults(forModuleWithName: identifier!)!
+       
         super.init(frame: frame, isPreview: isPreview)
         initialise()
+        readLog()
     }
     
     required init?(coder: NSCoder) {
         let identifier = NSBundle(forClass: TerminalScreensaverView.self).bundleIdentifier
         defaults = ScreenSaverDefaults(forModuleWithName: identifier!)!
+       
         super.init(coder: coder)
         initialise()
+         readLog()
     
     }
     
@@ -126,10 +138,25 @@ class TerminalScreensaverView: ScreenSaverView {
         isDelayRandom = delayRandomPreference
         lineDelay = lineDelayPreference
         
-        textContainer = NSTextContainer(containerSize: NSSize(width: frame.size.width, height: frame.size.height))
-        layoutmanager.addTextContainer(textContainer!)
-        textStorage.addLayoutManager(layoutmanager)
+        textLabel.frame = self.bounds
+        textLabel.textColor = terminalTextColor
+        addSubview(textLabel)
+
         animationTimeInterval = 1/5
+
+    }
+    
+    private func readLog() {
+        let bundle = NSBundle(forClass: TerminalScreensaverView.self)
+        let path = bundle.pathForResource("terminaltext", ofType: "txt")
+        if let aStreamReader = StreamReader(path: path!) {
+            defer {
+                aStreamReader.close()
+            }
+            while let line = aStreamReader.nextLine() {
+                list.append(line)
+            }
+        }
 
     }
     
@@ -169,14 +196,9 @@ class TerminalScreensaverView: ScreenSaverView {
     
     func append(string: NSString) {
         self.text = ((self.text)! as String) + (string as String)
-        let attributedText = NSMutableAttributedString(string: text! as String)
-        
-         attributedText.addAttribute(NSForegroundColorAttributeName , value:terminalTextColor!,range: NSMakeRange(0, text!.length))
-        
-        textStorage.setAttributedString(attributedText)
+        textLabel.stringValue = text as! String
     }
 
-    
 
     var terminalColorPreference: NSColor {
         set(newColor) {
@@ -250,6 +272,92 @@ class TerminalScreensaverView: ScreenSaverView {
             else {
                 return 2
             }
+        }
+    }
+    
+    
+    class StreamReader  {
+        
+        let encoding : UInt
+        let chunkSize : Int
+        
+        var fileHandle : NSFileHandle!
+        let buffer : NSMutableData!
+        let delimData : NSData!
+        var atEof : Bool = false
+        
+        init?(path: String, delimiter: String = "\n", encoding : UInt = NSUTF8StringEncoding, chunkSize : Int = 4096) {
+            self.chunkSize = chunkSize
+            self.encoding = encoding
+            
+            if let fileHandle = NSFileHandle(forReadingAtPath: path),
+                delimData = delimiter.dataUsingEncoding(encoding),
+                buffer = NSMutableData(capacity: chunkSize)
+            {
+                self.fileHandle = fileHandle
+                self.delimData = delimData
+                self.buffer = buffer
+            } else {
+                self.fileHandle = nil
+                self.delimData = nil
+                self.buffer = nil
+                return nil
+            }
+        }
+        
+        deinit {
+            self.close()
+        }
+        
+        /// Return next line, or nil on EOF.
+        func nextLine() -> String? {
+            precondition(fileHandle != nil, "Attempt to read from closed file")
+            
+            if atEof {
+                return nil
+            }
+            
+            // Read data chunks from file until a line delimiter is found:
+            var range = buffer.rangeOfData(delimData, options: [], range: NSMakeRange(0, buffer.length))
+            while range.location == NSNotFound {
+                let tmpData = fileHandle.readDataOfLength(chunkSize)
+                if tmpData.length == 0 {
+                    // EOF or read error.
+                    atEof = true
+                    if buffer.length > 0 {
+                        // Buffer contains last line in file (not terminated by delimiter).
+                        let line = NSString(data: buffer, encoding: encoding)
+                        
+                        buffer.length = 0
+                        return line as String?
+                    }
+                    // No more lines.
+                    return nil
+                }
+                buffer.appendData(tmpData)
+                range = buffer.rangeOfData(delimData, options: [], range: NSMakeRange(0, buffer.length))
+            }
+            
+            // Convert complete line (excluding the delimiter) to a string:
+            let line = NSString(data: buffer.subdataWithRange(NSMakeRange(0, range.location)),
+                encoding: encoding)
+            // Remove line (and the delimiter) from the buffer:
+            buffer.replaceBytesInRange(NSMakeRange(0, range.location + range.length), withBytes: nil, length: 0)
+            
+            return line as String?
+        }
+        
+        /// Start reading from the beginning of file.
+        func rewind() -> Void {
+            fileHandle.seekToFileOffset(0)
+            buffer.length = 0
+            atEof = false
+        }
+        
+        /// Close the underlying file. No reading must be done after calling this method.
+        func close() -> Void {
+            fileHandle?.closeFile()
+            fileHandle = nil
         }
     }
 
