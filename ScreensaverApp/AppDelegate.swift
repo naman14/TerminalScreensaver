@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         if let screenSaverView = screenSaverView {
             screenSaverView.frame = window!.contentView!.bounds;
-            window!.contentView!.addSubview(screenSaverView);
+            window!.contentView! = screenSaverView
             NSTimer.scheduledTimerWithTimeInterval(screenSaverView.animationTimeInterval, target: screenSaverView, selector: "animateOneFrame", userInfo: nil, repeats: true)
 
         }

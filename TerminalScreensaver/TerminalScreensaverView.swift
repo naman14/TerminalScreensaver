@@ -12,7 +12,6 @@ import ScreenSaver
 
 class TerminalScreensaverView: ScreenSaverView {
     
-    var text: NSString? = ""
     private var nibArray: NSArray? = nil
     
     var defaults: NSUserDefaults
@@ -32,16 +31,7 @@ class TerminalScreensaverView: ScreenSaverView {
     @IBOutlet weak var lineDelaySliderLabel: NSTextField?
     @IBOutlet var terminalTextView: NSTextView?
     
-    private let textLabel: NSTextField = {
-        let label = NSTextField()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.editable = false
-        label.drawsBackground = false
-        label.bordered = false
-        label.bezeled = false
-        label.selectable = false
-        return label
-    }()
+    private var textLabel: NSTextView?
     
     private var list: [NSString] = []
     private var readPosition: Int = 0
@@ -105,9 +95,11 @@ class TerminalScreensaverView: ScreenSaverView {
         backgroundColor.setFill()
         NSBezierPath.fillRect(bounds)
         
+        if(readPosition < list.count) {
         append(list[readPosition])
         append("\n")
         readPosition+=1
+        }
         
            }
     
@@ -138,9 +130,14 @@ class TerminalScreensaverView: ScreenSaverView {
         isDelayRandom = delayRandomPreference
         lineDelay = lineDelayPreference
         
-        textLabel.frame = self.bounds
-        textLabel.textColor = terminalTextColor
-        addSubview(textLabel)
+        textLabel = NSTextView(frame: bounds)
+        textLabel!.frame = self.bounds
+        textLabel!.textColor = terminalTextColor
+        textLabel!.translatesAutoresizingMaskIntoConstraints = false
+        textLabel!.editable = false
+        textLabel!.drawsBackground = false
+        textLabel!.selectable = false
+        addSubview(textLabel!)
 
         animationTimeInterval = 1/5
 
@@ -195,8 +192,9 @@ class TerminalScreensaverView: ScreenSaverView {
     
     
     func append(string: NSString) {
-        self.text = ((self.text)! as String) + (string as String)
-        textLabel.stringValue = text as! String
+        textLabel?.textStorage?.appendAttributedString(NSAttributedString(string: string as String))
+//        textLabel?.scrollRangeToVisible(NSMakeRange((textLabel?.string!.characters.count)!, 0))
+        textLabel?.scrollToEndOfDocument(self.textLabel)
     }
 
 
