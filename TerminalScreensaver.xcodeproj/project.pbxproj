@@ -16,7 +16,6 @@
 		EDA03EAA1C7E6A5C0095107B /* terminaltext.txt in Resources */ = {isa = PBXBuildFile; fileRef = EDA03EA91C7E6A5C0095107B /* terminaltext.txt */; };
 		EDA03EAC1C7E6C610095107B /* terminaltext.txt in Resources */ = {isa = PBXBuildFile; fileRef = EDA03EA91C7E6A5C0095107B /* terminaltext.txt */; };
 		EDA5BCF71C7B726700EB191F /* TerminalScreensaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */; };
-		EDE196D81C7D18F80027BB97 /* CustomTextWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDE196D71C7D18F80027BB97 /* CustomTextWindow.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +29,6 @@
 		EDA5BCE91C7B6F4700EB191F /* TerminalScreensaver.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TerminalScreensaver.saver; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA5BCF01C7B6F4700EB191F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalScreensaverView.swift; sourceTree = "<group>"; };
-		EDE196D71C7D18F80027BB97 /* CustomTextWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTextWindow.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +85,6 @@
 				EDA5BCF01C7B6F4700EB191F /* Info.plist */,
 				EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */,
 				ED6D72211C7B83B800E9A98F /* PreferenceWindow.xib */,
-				EDE196D71C7D18F80027BB97 /* CustomTextWindow.xib */,
 			);
 			path = TerminalScreensaver;
 			sourceTree = "<group>";
@@ -194,7 +191,6 @@
 			files = (
 				EDA03EAA1C7E6A5C0095107B /* terminaltext.txt in Resources */,
 				ED6D72221C7B83B800E9A98F /* PreferenceWindow.xib in Resources */,
-				EDE196D81C7D18F80027BB97 /* CustomTextWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,9 +18,8 @@ class TerminalScreensaverView: ScreenSaverView {
     
     private var terminalColor: NSColor?
     private var terminalTextColor: NSColor?
-    private var terminalText: NSString?
     private var isDelayRandom: Bool?
-    private var lineDelay: Int?
+    private var lineDelay: Double?
     
     @IBOutlet weak var configSheet: NSWindow! = nil
     @IBOutlet weak var textConfigSheet: NSWindow! = nil
@@ -29,7 +28,7 @@ class TerminalScreensaverView: ScreenSaverView {
     @IBOutlet weak var isDelayRandomButton: NSButton?
     @IBOutlet weak var lineDelaySlider: NSSlider?
     @IBOutlet weak var lineDelaySliderLabel: NSTextField?
-    @IBOutlet var terminalTextView: NSTextView?
+    @IBOutlet weak var lineDelayTextField: NSTextField?
     
     private var textLabel: NSTextView?
     private var scrollView: NSScrollView?
@@ -70,25 +69,15 @@ class TerminalScreensaverView: ScreenSaverView {
     }
     @IBAction func lineDelaySliderChange(slider: NSSlider)
     {
-        lineDelayPreference = slider.integerValue
-        lineDelaySliderLabel?.stringValue = "\(slider.integerValue) seconds"
+        lineDelayPreference = slider.doubleValue
+        lineDelaySliderLabel?.stringValue = "\(slider.doubleValue) seconds"
+    }
+    @IBAction func lineDelayFieldChange(field: NSTextField)
+    {
+        lineDelayPreference = field.doubleValue
+//        lineDelaySliderLabel?.stringValue = "\(fielddoubleValue) seconds"
     }
     
-    @IBAction func enterTextClick(button: NSButton)
-    {
-        if textConfigSheet == nil {
-            let ourBundle = NSBundle(forClass: self.dynamicType)
-            ourBundle.loadNibNamed("CustomTextWindow", owner: self, topLevelObjects: &nibArray)
-            terminalTextView?.string = terminalTextPreference as String
-            terminalTextView?.editable = true
-            terminalTextView?.selectable
-        }
-    }
-    
-    @IBAction func saveTextClick(button: NSButton)
-    {
-        terminalTextPreference = (terminalTextView?.string)!
-    }
     
     override func drawRect(dirtyRect: NSRect) {
         
@@ -117,7 +106,6 @@ class TerminalScreensaverView: ScreenSaverView {
         
         terminalColor = terminalColorPreference
         terminalTextColor = terminalTextColorPreference
-        terminalText = terminalTextPreference
         isDelayRandom = delayRandomPreference
         lineDelay = lineDelayPreference
         
@@ -145,14 +133,12 @@ class TerminalScreensaverView: ScreenSaverView {
         scrollView?.documentView = textLabel
         
         addSubview(scrollView!)
-        
-        animationTimeInterval = 1/5
-        
-//        if((isDelayRandom) != nil) {
-//            animationTimeInterval = 1/5
-//        } else {
-//            animationTimeInterval = 1/5
-//        }
+       
+        if((isDelayRandom) != nil) {
+            animationTimeInterval = 1/5
+        } else {
+            animationTimeInterval = lineDelay!
+        }
         
     }
     
@@ -197,8 +183,9 @@ class TerminalScreensaverView: ScreenSaverView {
             ourBundle.loadNibNamed("PreferenceWindow", owner: self, topLevelObjects: &nibArray)
             terminalColorWell!.color = terminalColorPreference
             terminalTextColorWell!.color = terminalTextColorPreference
-            lineDelaySlider?.integerValue = lineDelayPreference
+            lineDelaySlider?.doubleValue = lineDelayPreference
             lineDelaySliderLabel?.stringValue = "\(lineDelay!) seconds"
+            lineDelayTextField?.doubleValue = lineDelayPreference
             if(delayRandomPreference){
                 isDelayRandomButton?.state = NSOnState
             } else {
@@ -278,17 +265,17 @@ class TerminalScreensaverView: ScreenSaverView {
         }
     }
     
-    var lineDelayPreference: Int {
+    var lineDelayPreference: Double {
         set(newValue) {
-            defaults.setInteger(newValue, forKey: "lineDelayInt")
+            defaults.setDouble(newValue, forKey: "lineDelayTime")
             defaults.synchronize()
         }
         get {
-            if let integer = defaults.integerForKey("lineDelayInt") as Int? {
-                return integer
+            if let double = defaults.doubleForKey("lineDelayTime") as Double? {
+                return double
             }
             else {
-                return 2
+                return 0.5
             }
         }
     }
