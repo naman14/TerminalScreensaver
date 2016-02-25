@@ -18,18 +18,18 @@ class TerminalScreensaverView: ScreenSaverView {
     
     private var terminalColor: NSColor?
     private var terminalTextColor: NSColor?
-    private var isDelayRandom: Bool?
     private var lineDelay: Double?
     private var fontSize: Double?
+    private var repeatEnabled: Int?
     
     @IBOutlet weak var configSheet: NSWindow! = nil
     @IBOutlet weak var textConfigSheet: NSWindow! = nil
     @IBOutlet weak var terminalColorWell: NSColorWell?
     @IBOutlet weak var terminalTextColorWell: NSColorWell?
-    @IBOutlet weak var isDelayRandomButton: NSButton?
     @IBOutlet weak var lineDelaySlider: NSSlider?
     @IBOutlet weak var lineDelaySliderLabel: NSTextField?
     @IBOutlet weak var fontSizeSlider: NSSlider?
+    @IBOutlet weak var isRepeatEnabledButton: NSButton?
     
     private var textLabel: NSTextView?
     private var scrollView: NSScrollView?
@@ -55,17 +55,16 @@ class TerminalScreensaverView: ScreenSaverView {
     {
         NSApp.endSheet(configSheet!)
     }
-    @IBAction func cancelTextEditClick(button: NSButton)
-    {
-        NSApp.endSheet(textConfigSheet!)
-    }
-    @IBAction func delayRandomStateChange(button: NSButton)
+    
+    @IBAction func isRepeatStateChange(button: NSButton)
     {
         if(button.state == NSOnState) {
-            delayRandomPreference = true
+            repeatEnabledPreference = 1
+            repeatEnabled = 1
         }
         else {
-            delayRandomPreference = false
+            repeatEnabledPreference = 0
+            repeatEnabled = 0
         }
     }
     @IBAction func lineDelaySliderChange(slider: NSSlider)
@@ -105,9 +104,9 @@ class TerminalScreensaverView: ScreenSaverView {
         
         terminalColor = terminalColorPreference
         terminalTextColor = terminalTextColorPreference
-        isDelayRandom = delayRandomPreference
         lineDelay = lineDelayPreference
         fontSize = fontSizePreference
+        repeatEnabled = repeatEnabledPreference
         
         scrollView = NSScrollView(frame: bounds)
         scrollView?.hasVerticalScroller = true
@@ -134,11 +133,6 @@ class TerminalScreensaverView: ScreenSaverView {
         
         addSubview(scrollView!)
         
-//        if((isDelayRandom) != nil) {
-//            animationTimeInterval = 1/5
-//        } else {
-//            animationTimeInterval = lineDelay!
-//        }
         animationTimeInterval = lineDelay!
         
     }
@@ -194,11 +188,15 @@ class TerminalScreensaverView: ScreenSaverView {
     }
     
     override func animateOneFrame() {
+        
         if(readPosition < list.count) {
             append(list[readPosition])
             append("\n")
             readPosition+=1
+        } else if(repeatEnabled == 1){
+            readPosition = 0
         }
+        
     }
     
     override func hasConfigureSheet() -> Bool {
@@ -214,10 +212,11 @@ class TerminalScreensaverView: ScreenSaverView {
             lineDelaySlider?.doubleValue = lineDelayPreference
             lineDelaySliderLabel?.stringValue =  String(format:"%.2f", lineDelay!) + " seconds"
             fontSizeSlider?.doubleValue = fontSizePreference
-            if(delayRandomPreference){
-                isDelayRandomButton?.state = NSOnState
+            
+            if(repeatEnabledPreference == 1){
+                isRepeatEnabledButton?.state = NSOnState
             } else {
-                isDelayRandomButton?.state = NSOffState
+                isRepeatEnabledButton?.state = NSOffState
             }
         }
         return configSheet
@@ -280,21 +279,6 @@ class TerminalScreensaverView: ScreenSaverView {
         }
     }
     
-    var delayRandomPreference: Bool {
-        set(newValue) {
-            defaults.setBool(newValue, forKey: "isDelayRandom")
-            defaults.synchronize()
-        }
-        get {
-            if let bool = defaults.boolForKey("isDelayRandom") as Bool? {
-                return bool
-            }
-            else {
-                return false
-            }
-        }
-    }
-    
     var lineDelayPreference: Double {
         set(newValue) {
             defaults.setDouble(newValue, forKey: "lineDelayTime")
@@ -305,7 +289,7 @@ class TerminalScreensaverView: ScreenSaverView {
                 return double
             }
             else {
-                return 0.5
+                return 0.2
             }
         }
     }
@@ -325,6 +309,20 @@ class TerminalScreensaverView: ScreenSaverView {
         }
     }
     
+    var repeatEnabledPreference: Int {
+        set(newValue) {
+            defaults.setInteger(newValue, forKey: "isRepeatEnabled")
+            defaults.synchronize()
+        }
+        get {
+            if let bool = defaults.integerForKey("isRepeatEnabled") as Int? {
+                return bool
+            }
+            else {
+                return 1
+            }
+        }
+    }
     
     class StreamReader  {
         
