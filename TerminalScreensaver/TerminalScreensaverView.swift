@@ -89,7 +89,7 @@ class TerminalScreensaverView: ScreenSaverView {
         
         super.init(frame: frame, isPreview: isPreview)
         initialise()
-        readLog()
+        readTerminalTextFile()
     }
     
     required init?(coder: NSCoder) {
@@ -98,7 +98,7 @@ class TerminalScreensaverView: ScreenSaverView {
         
         super.init(coder: coder)
         initialise()
-        readLog()
+        readTerminalTextFile()
         
     }
     
@@ -143,9 +143,36 @@ class TerminalScreensaverView: ScreenSaverView {
     }
     
     
-    private func readLog() {
+    private func readTerminalTextFile() {
+        
+        if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
+            
+            let path = dir.stringByAppendingPathComponent("terminalscreensaver.txt");
+            let checkValidation = NSFileManager.defaultManager()
+            
+            if (checkValidation.fileExistsAtPath(path)) {
+                if let aStreamReader = StreamReader(path: path) {
+                    defer {
+                        aStreamReader.close()
+                    }
+                    while let line = aStreamReader.nextLine() {
+                        list.append(line)
+                    }
+                }
+            } else {
+                readTerminalTextFromBundle()
+            }
+            
+        } else {
+            readTerminalTextFromBundle()
+        }
+        
+        
+    }
+    
+    private func readTerminalTextFromBundle() {
         let bundle = NSBundle(forClass: TerminalScreensaverView.self)
-        let path = bundle.pathForResource("terminaltext", ofType: "txt")
+        let path = bundle.pathForResource("terminalscreensaver", ofType: "txt")
         if let aStreamReader = StreamReader(path: path!) {
             defer {
                 aStreamReader.close()
@@ -154,7 +181,7 @@ class TerminalScreensaverView: ScreenSaverView {
                 list.append(line)
             }
         }
-        
+
     }
     
     override func startAnimation() {

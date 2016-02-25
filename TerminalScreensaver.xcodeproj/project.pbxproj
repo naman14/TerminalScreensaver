@@ -7,25 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED26E0001C7FA75F001A4968 /* terminalscreensaver.txt in Resources */ = {isa = PBXBuildFile; fileRef = ED26DFFF1C7FA75F001A4968 /* terminalscreensaver.txt */; };
 		ED6D72221C7B83B800E9A98F /* PreferenceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED6D72211C7B83B800E9A98F /* PreferenceWindow.xib */; };
 		ED6D722A1C7B866500E9A98F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED6D72291C7B866500E9A98F /* AppDelegate.swift */; };
 		ED6D722C1C7B866500E9A98F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED6D722B1C7B866500E9A98F /* Assets.xcassets */; };
 		ED6D722F1C7B866500E9A98F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED6D722D1C7B866500E9A98F /* MainMenu.xib */; };
 		ED6D72371C7B894100E9A98F /* TerminalScreensaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */; };
 		ED6D72391C7B899900E9A98F /* PreferenceWindow.xib in Sources */ = {isa = PBXBuildFile; fileRef = ED6D72211C7B83B800E9A98F /* PreferenceWindow.xib */; };
-		EDA03EAA1C7E6A5C0095107B /* terminaltext.txt in Resources */ = {isa = PBXBuildFile; fileRef = EDA03EA91C7E6A5C0095107B /* terminaltext.txt */; };
-		EDA03EAC1C7E6C610095107B /* terminaltext.txt in Resources */ = {isa = PBXBuildFile; fileRef = EDA03EA91C7E6A5C0095107B /* terminaltext.txt */; };
 		EDA5BCF71C7B726700EB191F /* TerminalScreensaverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ED26DFFF1C7FA75F001A4968 /* terminalscreensaver.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = terminalscreensaver.txt; sourceTree = "<group>"; };
 		ED6D72211C7B83B800E9A98F /* PreferenceWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreferenceWindow.xib; sourceTree = "<group>"; };
 		ED6D72271C7B866500E9A98F /* ScreensaverApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScreensaverApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6D72291C7B866500E9A98F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ED6D722B1C7B866500E9A98F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ED6D722E1C7B866500E9A98F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		ED6D72301C7B866500E9A98F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EDA03EA91C7E6A5C0095107B /* terminaltext.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = terminaltext.txt; sourceTree = "<group>"; };
 		EDA5BCE91C7B6F4700EB191F /* TerminalScreensaver.saver */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TerminalScreensaver.saver; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA5BCF01C7B6F4700EB191F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDA5BCF61C7B726700EB191F /* TerminalScreensaverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalScreensaverView.swift; sourceTree = "<group>"; };
@@ -63,10 +62,10 @@
 		EDA5BCDF1C7B6F4700EB191F = {
 			isa = PBXGroup;
 			children = (
-				EDA03EA91C7E6A5C0095107B /* terminaltext.txt */,
 				EDA5BCEB1C7B6F4700EB191F /* TerminalScreensaver */,
 				ED6D72281C7B866500E9A98F /* ScreensaverApp */,
 				EDA5BCEA1C7B6F4700EB191F /* Products */,
+				ED26DFFF1C7FA75F001A4968 /* terminalscreensaver.txt */,
 			);
 			sourceTree = "<group>";
 		};
@@ -179,7 +178,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDA03EAC1C7E6C610095107B /* terminaltext.txt in Resources */,
 				ED6D722C1C7B866500E9A98F /* Assets.xcassets in Resources */,
 				ED6D722F1C7B866500E9A98F /* MainMenu.xib in Resources */,
 			);
@@ -189,7 +187,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDA03EAA1C7E6A5C0095107B /* terminaltext.txt in Resources */,
+				ED26E0001C7FA75F001A4968 /* terminalscreensaver.txt in Resources */,
 				ED6D72221C7B83B800E9A98F /* PreferenceWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
