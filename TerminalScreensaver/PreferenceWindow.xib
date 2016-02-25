@@ -7,10 +7,10 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TerminalScreensaverView" customModule="TerminalScreensaver">
             <connections>
                 <outlet property="configSheet" destination="SZ8-ds-oe1" id="tzx-hk-tkl"/>
+                <outlet property="fontSizeSlider" destination="oNp-1v-DoR" id="GWt-2h-JV7"/>
                 <outlet property="isDelayRandomButton" destination="FB4-yT-5kB" id="Rde-Hd-B3V"/>
                 <outlet property="lineDelaySlider" destination="d1i-ME-vyk" id="cDB-eT-IYy"/>
                 <outlet property="lineDelaySliderLabel" destination="BAj-rU-G8q" id="49G-TE-xpw"/>
-                <outlet property="lineDelayTextField" destination="8Os-Ng-9zk" id="3zM-pr-2Hc"/>
                 <outlet property="terminalColorWell" destination="xRz-5r-9Tc" id="lTW-MI-2hq"/>
                 <outlet property="terminalTextColorWell" destination="NHw-BQ-Q5X" id="1po-kC-kDj"/>
             </connections>
@@ -20,10 +20,10 @@
         <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="SZ8-ds-oe1">
             <windowStyleMask key="styleMask" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="109" y="131" width="480" height="353"/>
+            <rect key="contentRect" x="109" y="131" width="480" height="324"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <view key="contentView" id="AYg-2S-Gmu">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="353"/>
+                <rect key="frame" x="0.0" y="0.0" width="480" height="324"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Vw-ab-7Na">
@@ -40,7 +40,7 @@ Gw
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Bc-kb-leW">
-                        <rect key="frame" x="18" y="285" width="166" height="17"/>
+                        <rect key="frame" x="18" y="245" width="166" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Terminal background color" id="jNu-xL-8pZ">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -48,22 +48,14 @@ Gw
                         </textFieldCell>
                     </textField>
                     <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xRz-5r-9Tc">
-                        <rect key="frame" x="197" y="282" width="44" height="23"/>
+                        <rect key="frame" x="197" y="242" width="44" height="23"/>
                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <action selector="backgroundColorClick:" target="-2" id="462-kF-8Ye"/>
                         </connections>
                     </colorWell>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Apw-gz-fvf">
-                        <rect key="frame" x="18" y="304" width="166" height="34"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Terminal text color" id="bkG-td-7AH">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <colorWell fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NHw-BQ-Q5X">
-                        <rect key="frame" x="197" y="320" width="44" height="23"/>
+                        <rect key="frame" x="196" y="281" width="44" height="23"/>
                         <color key="color" red="0.05813049898" green="0.055541899059999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <connections>
                             <action selector="terminalTextColorClick:" target="-2" id="5F6-Zp-sY5"/>
@@ -132,15 +124,6 @@ Gw
                             <action selector="lineDelaySliderChange:" target="-2" id="jcz-F1-vPz"/>
                         </connections>
                     </slider>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Os-Ng-9zk">
-                        <rect key="frame" x="94" y="95" width="96" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="5av-vd-tau">
-                            <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="srD-cx-lK0"/>
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LZ3-fF-rDH">
                         <rect key="frame" x="383" y="13" width="75" height="32"/>
                         <buttonCell key="cell" type="push" title="Apply" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="cim-Ib-Ed5">
@@ -151,9 +134,38 @@ Gw
                             <action selector="applyClick:" target="-2" id="llL-IT-2nX"/>
                         </connections>
                     </button>
+                    <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oNp-1v-DoR">
+                        <rect key="frame" x="136" y="90" width="140" height="21"/>
+                        <sliderCell key="cell" continuous="YES" state="on" alignment="left" minValue="5" maxValue="25" doubleValue="12" tickMarkPosition="above" sliderType="linear" id="4lc-dI-4tT"/>
+                        <connections>
+                            <action selector="fontSizeSliderChange:" target="-2" id="G7Q-WS-tSe"/>
+                        </connections>
+                    </slider>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d0j-9u-Gus">
+                        <rect key="frame" x="18" y="92" width="59" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Font size" id="2CP-Qm-3oj">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <box verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="1fZ-ji-YqT">
+                        <rect key="frame" x="32" y="128" width="282" height="5"/>
+                        <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
+                        <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <font key="titleFont" metaFont="system"/>
+                    </box>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Apw-gz-fvf">
+                        <rect key="frame" x="18" y="270" width="166" height="34"/>
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Terminal text color" id="bkG-td-7AH">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="530" y="275.5"/>
+            <point key="canvasLocation" x="524" y="215"/>
         </window>
     </objects>
 </document>

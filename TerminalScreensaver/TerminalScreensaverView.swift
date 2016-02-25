@@ -20,6 +20,7 @@ class TerminalScreensaverView: ScreenSaverView {
     private var terminalTextColor: NSColor?
     private var isDelayRandom: Bool?
     private var lineDelay: Double?
+    private var fontSize: Double?
     
     @IBOutlet weak var configSheet: NSWindow! = nil
     @IBOutlet weak var textConfigSheet: NSWindow! = nil
@@ -28,7 +29,7 @@ class TerminalScreensaverView: ScreenSaverView {
     @IBOutlet weak var isDelayRandomButton: NSButton?
     @IBOutlet weak var lineDelaySlider: NSSlider?
     @IBOutlet weak var lineDelaySliderLabel: NSTextField?
-    @IBOutlet weak var lineDelayTextField: NSTextField?
+    @IBOutlet weak var fontSizeSlider: NSSlider?
     
     private var textLabel: NSTextView?
     private var scrollView: NSScrollView?
@@ -70,14 +71,12 @@ class TerminalScreensaverView: ScreenSaverView {
     @IBAction func lineDelaySliderChange(slider: NSSlider)
     {
         lineDelayPreference = slider.doubleValue
-        lineDelaySliderLabel?.stringValue = "\(slider.doubleValue) seconds"
+        lineDelaySliderLabel?.stringValue = String(format:"%.2f", slider.doubleValue) + " seconds"
     }
-    @IBAction func lineDelayFieldChange(field: NSTextField)
+    @IBAction func fontSizeSliderChange(slider: NSSlider)
     {
-        lineDelayPreference = field.doubleValue
-//        lineDelaySliderLabel?.stringValue = "\(fielddoubleValue) seconds"
+        fontSizePreference = slider.doubleValue
     }
-    
     
     override func drawRect(dirtyRect: NSRect) {
         
@@ -108,12 +107,13 @@ class TerminalScreensaverView: ScreenSaverView {
         terminalTextColor = terminalTextColorPreference
         isDelayRandom = delayRandomPreference
         lineDelay = lineDelayPreference
+        fontSize = fontSizePreference
         
         scrollView = NSScrollView(frame: bounds)
         scrollView?.hasVerticalScroller = true
         scrollView?.hasHorizontalScroller = false
         scrollView?.backgroundColor = terminalColor!
-    
+        
         scrollView?.autoresizingMask = NSAutoresizingMaskOptions([.ViewWidthSizable,.ViewHeightSizable]);
         let contentSize: NSSize = (scrollView?.contentSize)!
         
@@ -133,12 +133,13 @@ class TerminalScreensaverView: ScreenSaverView {
         scrollView?.documentView = textLabel
         
         addSubview(scrollView!)
-       
-        if((isDelayRandom) != nil) {
-            animationTimeInterval = 1/5
-        } else {
-            animationTimeInterval = lineDelay!
-        }
+        
+//        if((isDelayRandom) != nil) {
+//            animationTimeInterval = 1/5
+//        } else {
+//            animationTimeInterval = lineDelay!
+//        }
+        animationTimeInterval = lineDelay!
         
     }
     
@@ -181,7 +182,7 @@ class TerminalScreensaverView: ScreenSaverView {
                 list.append(line)
             }
         }
-
+        
     }
     
     override func startAnimation() {
@@ -211,8 +212,8 @@ class TerminalScreensaverView: ScreenSaverView {
             terminalColorWell!.color = terminalColorPreference
             terminalTextColorWell!.color = terminalTextColorPreference
             lineDelaySlider?.doubleValue = lineDelayPreference
-            lineDelaySliderLabel?.stringValue = "\(lineDelay!) seconds"
-            lineDelayTextField?.doubleValue = lineDelayPreference
+            lineDelaySliderLabel?.stringValue =  String(format:"%.2f", lineDelay!) + " seconds"
+            fontSizeSlider?.doubleValue = fontSizePreference
             if(delayRandomPreference){
                 isDelayRandomButton?.state = NSOnState
             } else {
@@ -226,7 +227,9 @@ class TerminalScreensaverView: ScreenSaverView {
     func append(string: NSString) {
         let textView = scrollView?.documentView as! NSTextView
         let attributedString = NSMutableAttributedString(string: string as String)
-        attributedString.addAttribute(NSForegroundColorAttributeName , value:terminalTextColor!,range: NSMakeRange(0, string.length))
+        let range = NSMakeRange(0, string.length)
+        attributedString.addAttribute(NSForegroundColorAttributeName , value:terminalTextColor!,range: range)
+        attributedString.addAttribute(NSFontAttributeName, value: NSFont.systemFontOfSize(CGFloat(fontSize!)), range: range)
         textView.textStorage?.appendAttributedString(attributedString)
         textView.scrollToEndOfDocument(nil)
     }
@@ -303,6 +306,21 @@ class TerminalScreensaverView: ScreenSaverView {
             }
             else {
                 return 0.5
+            }
+        }
+    }
+    
+    var fontSizePreference: Double {
+        set(newValue) {
+            defaults.setDouble(newValue, forKey: "textFontSize")
+            defaults.synchronize()
+        }
+        get {
+            if let double = defaults.doubleForKey("textFontSize") as Double? {
+                return double
+            }
+            else {
+                return 12
             }
         }
     }
