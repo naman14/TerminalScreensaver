@@ -35,10 +35,10 @@ class TerminalScreensaverView: ScreenSaverView {
     
     private var list: [NSString] = []
     private var readPosition: Int = 0
-
+    
     @IBAction func applyClick(button: NSButton)
     {
-       NSApp.endSheet(configSheet!)
+        NSApp.endSheet(configSheet!)
     }
     
     @IBAction func backgroundColorClick(button: NSColorWell)
@@ -61,24 +61,24 @@ class TerminalScreensaverView: ScreenSaverView {
     @IBAction func delayRandomStateChange(button: NSButton)
     {
         if(button.state == NSOnState) {
-           delayRandomPreference = true
+            delayRandomPreference = true
         }
-         else {
+        else {
             delayRandomPreference = false
         }
     }
     @IBAction func lineDelaySliderChange(slider: NSSlider)
     {
-       lineDelayPreference = slider.integerValue
-       lineDelaySliderLabel?.stringValue = "\(slider.integerValue) seconds"
+        lineDelayPreference = slider.integerValue
+        lineDelaySliderLabel?.stringValue = "\(slider.integerValue) seconds"
     }
     
     @IBAction func enterTextClick(button: NSButton)
     {
-         if textConfigSheet == nil {
-        let ourBundle = NSBundle(forClass: self.dynamicType)
-        ourBundle.loadNibNamed("CustomTextWindow", owner: self, topLevelObjects: &nibArray)
-         terminalTextView?.string = terminalTextPreference as String
+        if textConfigSheet == nil {
+            let ourBundle = NSBundle(forClass: self.dynamicType)
+            ourBundle.loadNibNamed("CustomTextWindow", owner: self, topLevelObjects: &nibArray)
+            terminalTextView?.string = terminalTextPreference as String
             terminalTextView?.editable = true
             terminalTextView?.selectable
         }
@@ -90,23 +90,23 @@ class TerminalScreensaverView: ScreenSaverView {
     }
     
     override func drawRect(dirtyRect: NSRect) {
-    
+        
         let backgroundColor: NSColor = terminalColor!
         backgroundColor.setFill()
         NSBezierPath.fillRect(bounds)
         
         if(readPosition < list.count) {
-        append(list[readPosition])
-        append("\n")
-        readPosition+=1
+            append(list[readPosition])
+            append("\n")
+            readPosition+=1
         }
         
-           }
+    }
     
     override init?(frame: NSRect, isPreview: Bool) {
         let identifier = NSBundle(forClass: TerminalScreensaverView.self).bundleIdentifier
         defaults = ScreenSaverDefaults(forModuleWithName: identifier!)!
-       
+        
         super.init(frame: frame, isPreview: isPreview)
         initialise()
         readLog()
@@ -115,11 +115,11 @@ class TerminalScreensaverView: ScreenSaverView {
     required init?(coder: NSCoder) {
         let identifier = NSBundle(forClass: TerminalScreensaverView.self).bundleIdentifier
         defaults = ScreenSaverDefaults(forModuleWithName: identifier!)!
-       
+        
         super.init(coder: coder)
         initialise()
-         readLog()
-    
+        readLog()
+        
     }
     
     private func initialise() {
@@ -138,10 +138,15 @@ class TerminalScreensaverView: ScreenSaverView {
         textLabel!.drawsBackground = false
         textLabel!.selectable = false
         addSubview(textLabel!)
-
-        animationTimeInterval = 1/5
-
+        
+        if((isDelayRandom) != nil) {
+            animationTimeInterval = Double(lineDelay!)
+        } else {
+            animationTimeInterval = Double(arc4random_uniform(9))
+        }
+        
     }
+    
     
     private func readLog() {
         let bundle = NSBundle(forClass: TerminalScreensaverView.self)
@@ -154,7 +159,7 @@ class TerminalScreensaverView: ScreenSaverView {
                 list.append(line)
             }
         }
-
+        
     }
     
     override func startAnimation() {
@@ -193,11 +198,11 @@ class TerminalScreensaverView: ScreenSaverView {
     
     func append(string: NSString) {
         textLabel?.textStorage?.appendAttributedString(NSAttributedString(string: string as String))
-//        textLabel?.scrollRangeToVisible(NSMakeRange((textLabel?.string!.characters.count)!, 0))
+        //        textLabel?.scrollRangeToVisible(NSMakeRange((textLabel?.string!.characters.count)!, 0))
         textLabel?.scrollToEndOfDocument(self.textLabel)
     }
-
-
+    
+    
     var terminalColorPreference: NSColor {
         set(newColor) {
             defaults.setObject(NSKeyedArchiver.archivedDataWithRootObject(newColor), forKey: "terminalColor")
@@ -358,6 +363,6 @@ class TerminalScreensaverView: ScreenSaverView {
             fileHandle = nil
         }
     }
-
+    
     
 }
